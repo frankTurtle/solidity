@@ -4,7 +4,6 @@ import "./zombiehelper.sol";
 
 contract ZombieAttack is ZombieHelper {
     uint256 randNonce = 0;
-    // Create attackVictoryProbability here
     uint256 attackVictoryProbability = 70;
 
     function randMod(uint256 _modulus) internal returns (uint256) {
@@ -14,6 +13,14 @@ contract ZombieAttack is ZombieHelper {
             _modulus;
     }
 
-    // Create new function here
-    function attack(uint256 _zombieId, uint256 _targetId) external {}
+    // 1. Add modifier here
+    function attack(uint256 _zombieId, uint256 _targetId)
+        external
+        ownerOf(_zombieId)
+    {
+        // 2. Start function definition here
+        Zombie storage myZombie = zombies[_zombieId];
+        Zombie storage enemyZombie = zombies[_targetId];
+        uint256 rand = randMod(100);
+    }
 }
