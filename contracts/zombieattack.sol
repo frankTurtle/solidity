@@ -13,14 +13,18 @@ contract ZombieAttack is ZombieHelper {
             _modulus;
     }
 
-    // 1. Add modifier here
     function attack(uint256 _zombieId, uint256 _targetId)
         external
         ownerOf(_zombieId)
     {
-        // 2. Start function definition here
         Zombie storage myZombie = zombies[_zombieId];
         Zombie storage enemyZombie = zombies[_targetId];
         uint256 rand = randMod(100);
+        if (rand <= attackVictoryProbability) {
+            myZombie.winCount++;
+            myZombie.level++;
+            enemyZombie.lossCount++;
+            feedAndMultiply(_zombieId, enemyZombie.dna, "zombie");
+        }
     }
 }
