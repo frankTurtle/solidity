@@ -15,6 +15,13 @@ contract MappingsStructExample {
         paymentsMade[msg.sender] += msg.value;
     }
 
+    function withdrawMoney(address payable _to, uint _amount) public {
+        uint moneyToSend = paymentsMade[_to]; // get the amount the user has sent in already
+        require(_amount <= moneyToSend, "You can't withdraw more than you have sent"); // verification that the user has that amount
+        paymentsMade[_to] -= moneyToSend;
+        _to.transfer(moneyToSend);
+    }
+
     function withdrawAllMoney(address payable _to) public {
         // Using the Checks-Effects-Interaction pattern 👇
         uint moneyToSend = paymentsMade[_to]; // get the amount the user has sent in already
