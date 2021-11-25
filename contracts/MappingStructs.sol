@@ -4,8 +4,19 @@ pragma solidity ^0.8.4;
 
 contract MappingsStructExample {
 
+    struct Payment {
+        uint amount;
+        uint timestamp;
+    }
+
+    struct Balance {
+        uint totalBalance;
+        uint numPayments;
+        mapping(uint => Payment) payments;
+    }
+
     // Mapping to hold the address and amount paid into the contract
-    mapping (address => uint) paymentsMade;
+    mapping (address => Balance) paymentsMade;
 
     function getBalance() public view returns(uint) {
         return address(this).balance;
